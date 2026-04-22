@@ -1,0 +1,363 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.site { background: #fdf8f5; color: #3a2e2a; font-family: 'Georgia', serif; }
+nav { background: #fff; border-bottom: 0.5px solid #e8ddd6; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 18px; font-weight: 500; color: #7a5c4e; }
+.logo span { color: #c48b6e; }
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a { font-size: 13px; color: #8a7060; text-decoration: none; }
+.nav-btn { background: #b07d65; color: #fff; border: none; border-radius: 20px; padding: 8px 18px; font-size: 13px; cursor: pointer; }
+.hero { background: #f9f0e8; padding: 64px 32px 48px; text-align: center; }
+.hero-badge { display: inline-block; background: #f0e0d4; color: #b07d65; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 18px; }
+.hero h1 { font-size: 26px; font-weight: 400; color: #5c3d2e; line-height: 1.6; margin-bottom: 14px; }
+.hero h1 strong { font-weight: 500; color: #b07d65; }
+.hero p { font-size: 14px; color: #8a7060; line-height: 1.9; max-width: 520px; margin: 0 auto 32px; }
+.search-bar { background: #fff; border: 0.5px solid #e0d0c6; border-radius: 40px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; max-width: 480px; margin: 0 auto; }
+.search-bar input { border: none; outline: none; flex: 1; font-size: 14px; background: transparent; color: #5c3d2e; }
+.search-bar input::placeholder { color: #c0a898; }
+.search-btn { background: #b07d65; color: #fff; border: none; border-radius: 20px; padding: 8px 18px; font-size: 13px; cursor: pointer; }
+.tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+.tag { background: #fff; border: 0.5px solid #e0d0c6; color: #8a7060; font-size: 12px; padding: 5px 14px; border-radius: 20px; cursor: pointer; }
+.tag:hover { background: #f0e0d4; color: #b07d65; }
+.section { padding: 44px 32px; }
+.section-header { text-align: center; margin-bottom: 28px; }
+.section-header h2 { font-size: 20px; font-weight: 400; color: #5c3d2e; margin-bottom: 6px; }
+.section-header p { font-size: 13px; color: #a08070; }
+.filter-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-btn { border: 0.5px solid #e0d0c6; background: #fff; border-radius: 20px; padding: 6px 16px; font-size: 12px; color: #8a7060; cursor: pointer; }
+.filter-btn.active { background: #b07d65; color: #fff; border-color: #b07d65; }
+.counselor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.c-card { background: #fff; border: 0.5px solid #e8ddd6; border-radius: 16px; padding: 20px; }
+.c-card-top { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.avatar { width: 52px; height: 52px; border-radius: 50%; background: #f0e0d4; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #b07d65; font-weight: 500; flex-shrink: 0; }
+.c-info h3 { font-size: 15px; font-weight: 500; color: #5c3d2e; margin-bottom: 3px; }
+.c-info .cred { font-size: 11px; color: #a08070; line-height: 1.5; }
+.c-desc { font-size: 12px; color: #7a6558; line-height: 1.7; margin-bottom: 12px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.s-tag { background: #f9f0e8; color: #b07d65; font-size: 11px; padding: 3px 10px; border-radius: 10px; }
+.c-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 0.5px solid #f0e4dc; padding-top: 12px; }
+.price { font-size: 13px; color: #5c3d2e; }
+.price span { font-size: 11px; color: #a08070; }
+.apply-btn { background: #f9f0e8; color: #b07d65; border: 0.5px solid #e8cfc0; border-radius: 16px; padding: 6px 14px; font-size: 12px; cursor: pointer; }
+.how { background: #fff; border-top: 0.5px solid #e8ddd6; border-bottom: 0.5px solid #e8ddd6; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.step { padding: 28px 20px; text-align: center; border-right: 0.5px solid #f0e4dc; }
+.step:last-child { border-right: none; }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: #f0e0d4; color: #b07d65; font-size: 13px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-weight: 500; }
+.step h4 { font-size: 13px; font-weight: 500; color: #5c3d2e; margin-bottom: 6px; }
+.step p { font-size: 11px; color: #a08070; line-height: 1.6; }
+.footer { background: #f0e4dc; padding: 28px 32px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; }
+.footer-logo { font-size: 16px; color: #7a5c4e; margin-bottom: 8px; }
+.footer p { font-size: 11px; color: #a08070; line-height: 1.8; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { font-size: 11px; color: #a08070; text-decoration: none; }
+
+.question-section { padding-top: 26px; }
+.question-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.q-card { background: #fff; border: 0.5px solid #e8ddd6; border-radius: 16px; padding: 20px; }
+.q-card h3 { font-size: 18px; font-weight: 500; color: #5c3d2e; line-height: 1.5; margin-bottom: 12px; word-break: keep-all; }
+.q-card p { font-size: 13px; color: #8a7060; line-height: 1.8; }
+
+.cred-section { background: #fff; border-top: 0.5px solid #e8ddd6; border-bottom: 0.5px solid #e8ddd6; }
+.cred-list { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+.cred-note { font-size: 12px; color: #a08070; text-align: center; margin-top: -8px; margin-bottom: 20px; }
+.cred-item { background: #fdf8f5; border: 0.5px solid #e8ddd6; border-radius: 18px; overflow: hidden; }
+.cred-head { width: 100%; border: none; background: transparent; text-align: left; padding: 20px 22px; display: flex; align-items: center; gap: 16px; cursor: pointer; }
+.cred-icon { width: 56px; height: 56px; border-radius: 50%; background: #f0e0d4; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+.cred-title { font-size: 17px; color: #5c3d2e; line-height: 1.5; }
+.cred-arrow { margin-left: auto; color: #b07d65; font-size: 14px; transition: transform .2s ease; }
+.cred-item.open .cred-arrow { transform: rotate(180deg); }
+.cred-body { display: none; padding: 0 22px 22px 94px; font-size: 13px; color: #8a7060; line-height: 1.9; }
+.cred-item.open .cred-body { display: block; }
+.info-note { margin-top: 10px; padding: 14px 16px; border-radius: 14px; background: #f9f0e8; color: #8a7060; font-size: 12px; line-height: 1.8; }
+.nickname-note { margin-top: 10px; font-size: 12px; color: #a08070; line-height: 1.8; text-align: center; }
+
+@media (max-width: 1024px) {
+  .question-grid, .counselor-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  nav { padding: 14px 18px; flex-direction: column; gap: 10px; }
+  .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero { padding: 48px 20px 36px; }
+  .section { padding: 36px 20px; }
+  .question-grid, .counselor-grid, .steps { grid-template-columns: 1fr; }
+  .step { border-right: none; border-bottom: 0.5px solid #f0e4dc; }
+  .step:last-child { border-bottom: none; }
+  .cred-head { align-items: flex-start; }
+  .cred-body { padding: 0 20px 20px 20px; }
+  .footer-inner { flex-direction: column; gap: 18px; }
+}
+
+
+.register-section { padding: 44px 32px 56px; }
+.register-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.register-card { background: #fff; border: 0.5px solid #e8ddd6; border-radius: 24px; padding: 42px 42px 38px; }
+.register-card h3 { font-size: 18px; font-weight: 500; color: #5c3d2e; margin-bottom: 22px; }
+.register-card p { font-size: 13px; color: #a08070; line-height: 1.85; margin-bottom: 28px; max-width: 520px; }
+.register-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 230px; padding: 18px 28px; border-radius: 999px; text-decoration: none; font-size: 15px; font-weight: 500; color: #fff; }
+.register-btn.counselor { background: #b07d65; }
+.register-btn.trainee { background: #5f946f; }
+
+@media (max-width: 720px) {
+  .register-grid { grid-template-columns: 1fr; }
+  .register-card { padding: 30px 24px 28px; }
+  .register-btn { width: 100%; min-width: 0; }
+}
+
+</style>
+
+<div class="site">
+  <nav>
+    <div class="logo">모두의 <span>상담사</span></div>
+    <div class="nav-links">
+      <a href="#">상담사 찾기</a>
+      <a href="#">심리검사</a>
+      <a href="#">이용안내</a>
+      <a href="#">상담사 등록</a>
+      <button class="nav-btn">시작하기</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">검증된 임상·상담 심리 전문가</div>
+    <h1>심리상담, 심리검사 받고 싶은데<br><strong>누구한테 어떤 걸 받지?</strong></h1>
+    <p>고민되셨다면 여기서 확인해보세요.<br>받고 싶은 심리 서비스에 맞춰 정식 수련을 받은 후 검증된<br>임상 및 상담 심리사들을 소개해드립니다.</p>
+    <div class="search-bar">
+      <input type="text" placeholder="불안, 우울, MBTI 검사, 진로 상담... 검색해보세요" />
+      <button class="search-btn">검색</button>
+    </div>
+    <div class="tags">
+      <div class="tag">우울·무기력</div>
+      <div class="tag">불안·공황</div>
+      <div class="tag">관계 갈등</div>
+      <div class="tag">트라우마</div>
+      <div class="tag">심리검사</div>
+      <div class="tag">진로·자존감</div>
+      <div class="tag">가족·부부</div>
+    </div>
+  </div>
+
+
+  <div class="section question-section">
+    <div class="section-header">
+      <h2>이런 고민, 한 번쯤 해보셨나요?</h2>
+      <p>이용자가 실제로 궁금해하는 기준을 먼저 쉽게 확인할 수 있도록 정리했습니다</p>
+    </div>
+    <div class="question-grid">
+      <div class="q-card">
+        <h3>자격증이 있으면<br>다 심리전문가인가?</h3>
+        <p>자격 이름만이 아니라 어떤 수련 체계 안에서 훈련받았는지를 함께 봐야 합니다.</p>
+      </div>
+      <div class="q-card">
+        <h3>누구한테 받아야<br>안전할까?</h3>
+        <p>자격, 수련 배경, 실제 전문 분야를 함께 확인하면 더 안전하게 선택할 수 있습니다.</p>
+      </div>
+      <div class="q-card">
+        <h3>여기저기 일한 경력이 많으면<br>괜찮은걸까?</h3>
+        <p>경력의 양보다 어떤 훈련을 받았는지, 어떤 영역을 실제로 수행하는지가 더 중요합니다.</p>
+      </div>
+      <div class="q-card">
+        <h3>심리상담은<br>너무 비싸지 않나?</h3>
+        <p>유료 상담사 정보뿐 아니라 수련생의 무료 사례 정보도 함께 비교해 볼 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section cred-section">
+    <div class="section-header">
+      <h2>전문 자격 안내</h2>
+      <p>궁금한 자격증을 클릭해보세요</p>
+    </div>
+    <div class="cred-list">
+      <div class="cred-item">
+        <button class="cred-head" type="button">
+          <div class="cred-icon">🧶</div>
+          <div class="cred-title">한국상담학회 / 한국상담심리학회 상담심리사 1급 · 2급</div>
+          <div class="cred-arrow">▼</div>
+        </button>
+        <div class="cred-body">
+          심리학 관련 석사 과정을 바탕으로, 학회가 규정한 정식 수련 과정을 슈퍼바이저 지도 아래 거친 뒤 응시할 수 있는 상담 전문 자격입니다.
+          개인상담, 관계 문제, 정서적 어려움에 대한 심리상담 역량을 중심으로 훈련받은 전문 인력입니다.
+        </div>
+      </div>
+
+      <div class="cred-item">
+        <button class="cred-head" type="button">
+          <div class="cred-icon">👔</div>
+          <div class="cred-title">국립정신건강센터 정신건강임상심리사 1급 · 2급</div>
+          <div class="cred-arrow">▼</div>
+        </button>
+        <div class="cred-body">
+          심리학 관련 학·석사를 바탕으로, 지정된 수련기관에서 정식 수련 과정을 거쳐 취득하는 정신건강전문요원 자격입니다.
+          심리상담뿐 아니라 심리평가, 재활, 교육 등 정신건강 영역 전반에서 실무 역량을 갖춘 전문 인력입니다.
+        </div>
+      </div>
+
+      <div class="cred-item">
+        <button class="cred-head" type="button">
+          <div class="cred-icon">🥼</div>
+          <div class="cred-title">한국임상심리학회 임상심리전문가</div>
+          <div class="cred-arrow">▼</div>
+        </button>
+        <div class="cred-body">
+          심리학 관련 석사 이후, 학회가 규정한 수련기관에서 3년 이상의 정식 수련을 거쳐 취득하는 임상심리 전문 자격입니다.
+          심리평가 역량을 중심으로 훈련받으며, 심리상담과 정신건강 현장에서도 활동하는 전문 인력입니다.
+        </div>
+      </div>
+    </div>
+    <div class="info-note">
+      참고: 그 외에도 의미 있는 교육과 경험을 가진 분들이 있을 수 있습니다. 다만 이 페이지는 이용자가 훈련 체계와 전문성 수준을 비교적 명확하게 확인할 수 있는 자격을 우선 기준으로 삼고 있어, 현재는 위와 같이 검증 가능성이 높은 자격과 수련 배경을 중심으로 등록을 받고 있습니다.
+    </div>
+  </div>
+
+
+  <div class="section">
+    <div class="section-header">
+      <h2>상담사 찾기</h2>
+      <p>전문 분야와 자격 기준으로 나에게 맞는 상담사를 찾아보세요</p>
+      <div class="nickname-note">상담사 보호를 위해 웹페이지에는 닉네임으로 소개되며, 이력·경력·비용·지역·상담방식 정보는 투명하게 공개합니다.<br>실명은 예약 진행 시 각 상담사에게 개별적으로 확인하실 수 있습니다.</div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-btn active">전체</div>
+      <div class="filter-btn">임상심리사</div>
+      <div class="filter-btn">상담심리사</div>
+      <div class="filter-btn">정신건강임상심리사</div>
+      <div class="filter-btn">온라인 상담 가능</div>
+      <div class="filter-btn">주말 가능</div>
+    </div>
+    <div class="counselor-grid">
+      <div class="c-card">
+        <div class="c-card-top">
+          <div class="avatar">김</div>
+          <div class="c-info">
+            <h3>김○○ 심리사</h3>
+            <div class="cred">임상심리사 1급<br>경력 8년 · 서울 강남</div>
+          </div>
+        </div>
+        <div class="c-desc">인지행동치료(CBT) 기반으로 우울, 불안, 강박을 전문으로 합니다. 대학병원 수련 후 개인 상담 8년 경력.</div>
+        <div class="tag-row">
+          <span class="s-tag">우울</span><span class="s-tag">불안</span><span class="s-tag">강박</span><span class="s-tag">CBT</span>
+        </div>
+        <div class="c-card-footer">
+          <div class="price">60,000원 <span>/ 50분</span></div>
+          <button class="apply-btn">프로필 보기</button>
+        </div>
+      </div>
+      <div class="c-card">
+        <div class="c-card-top">
+          <div class="avatar">이</div>
+          <div class="c-info">
+            <h3>이○○ 심리사</h3>
+            <div class="cred">상담심리사 1급<br>경력 5년 · 온라인</div>
+          </div>
+        </div>
+        <div class="c-desc">관계 갈등, 가족 문제, 대인불안 전문. 비대면 화상 상담으로 전국 어디서든 만나실 수 있어요.</div>
+        <div class="tag-row">
+          <span class="s-tag">관계갈등</span><span class="s-tag">가족</span><span class="s-tag">온라인</span>
+        </div>
+        <div class="c-card-footer">
+          <div class="price">55,000원 <span>/ 50분</span></div>
+          <button class="apply-btn">프로필 보기</button>
+        </div>
+      </div>
+      <div class="c-card">
+        <div class="c-card-top">
+          <div class="avatar">박</div>
+          <div class="c-info">
+            <h3>박○○ 심리사</h3>
+            <div class="cred">정신건강임상심리사 2급<br>경력 6년 · 경기 성남</div>
+          </div>
+        </div>
+        <div class="c-desc">트라우마, 복합 PTSD 전문. EMDR 자격 보유. 심리검사(MMPI, SCL-90) 해석 상담 다수 경험.</div>
+        <div class="tag-row">
+          <span class="s-tag">트라우마</span><span class="s-tag">PTSD</span><span class="s-tag">심리검사</span><span class="s-tag">EMDR</span>
+        </div>
+        <div class="c-card-footer">
+          <div class="price">65,000원 <span>/ 50분</span></div>
+          <button class="apply-btn">프로필 보기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section how">
+    <div class="section-header">
+      <h2>이용 방법</h2>
+      <p>4단계로 쉽게 나만의 상담사를 만나보세요</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>고민 검색</h4>
+        <p>지금 힘든 것을 키워드로 검색하거나 분야를 선택하세요</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>상담사 비교</h4>
+        <p>자격, 경력, 전문 분야, 후기를 보고 나에게 맞는 분을 찾아요</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>날짜·방식 선택</h4>
+        <p>대면 / 비대면, 날짜와 시간을 직접 선택해 예약해요</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>상담 시작</h4>
+        <p>예약 확정 후 상담사와 안전하게 연결돼요</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section register-section">
+    <div class="register-grid">
+      <div class="register-card">
+        <h3>상담사로 등록하시겠어요?</h3>
+        <p>자격을 갖춘 임상·상담 심리사라면 누구든 '모두의 상담사'에 프로필을 등록할 수 있어요. 내담자를 기다리는 것이 아니라, 필요한 회원이 먼저 찾아옵니다.</p>
+        <a class="register-btn counselor" href="https://docs.google.com/forms/d/e/1FAIpQLSepvDNVA6xvx78u55hMTQQR5F5m3gnY_EftCEprNhCJ99IjbQ/viewform?usp=dialog" target="_blank" rel="noopener">상담사 등록 신청하기</a>
+      </div>
+      <div class="register-card">
+        <h3>무료 케이스를 구하시나요?</h3>
+        <p>수련 중인 대학원생이나 수련생이라면 이 곳에서 무료 상담·검사 케이스를 모집할 수 있어요. 프로필 등록 후 승인되면 바로 노출됩니다.</p>
+        <a class="register-btn trainee" href="https://docs.google.com/forms/d/e/1FAIpQLSeu5FKrkFQftiioegsq0uKXYNZ5J7kV1LMAMLyaRt-QMhs7lg/viewform?usp=publish-editor" target="_blank" rel="noopener">수련생 등록 신청하기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">모두의 상담사</div>
+        <p>심리 서비스 연결 플랫폼 · 사업자등록번호 000-00-00000<br>
+        이메일: help@모두의상담사.kr · 고객센터: 평일 10:00–18:00</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">상담사로 등록하기</a>
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('.tag').forEach(tag => {
+  tag.addEventListener('click', () => {
+    document.querySelector('.search-bar input').value = tag.textContent;
+  });
+});
+document.querySelectorAll('.cred-head').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.parentElement.classList.toggle('open');
+  });
+});
+</script>
