@@ -365,7 +365,9 @@ function renderCounselors() {
     return `
       <div class="c-card" data-search="${getSearchText(c)}">
         <div class="c-card-top">
-          <div class="avatar">${c.name ? c.name[0] : '?'}</div>
+         <div class="avatar">
+  ${c.image ? `<img src="${c.image}" alt="${c.name} 프로필 이미지">` : `${c.name ? c.name[0] : '?'}`}
+</div>
           <div class="c-info">
             <h3>${c.name || '이름 미등록'} <span class="s-tag">${typeLabel}</span></h3>
             <div class="cred">${c.license || ''}<br>${c.region || ''}</div>
