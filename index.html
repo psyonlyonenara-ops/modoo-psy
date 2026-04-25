@@ -352,6 +352,18 @@ let allCounselors = [];
 let currentType = 'all';
 let currentFilter = '전체';
 
+function getIntroText(c) {
+  return (
+    c.intro ||
+    c.description ||
+    c.bio ||
+    c.profile ||
+    c.message ||
+    c.comment ||
+    ''
+  );
+}
+
 function normalizeText(value) {
   if (Array.isArray(value)) return value.join(' ');
   if (value === undefined || value === null) return '';
@@ -374,8 +386,7 @@ function getSearchText(c) {
     c.name,
     c.license,
     c.region,
-    c.intro,
-    c.description,
+    getIntroText(c),
     getSpecialtyText(c),
     normalizeText(c.types)
   ].join(' ');
@@ -401,8 +412,10 @@ function renderCounselors() {
   }
 
   list.innerHTML = filtered.map(c => {
+    const intro = getIntroText(c);
     const specialty = getSpecialtyText(c);
     const typeLabel = getCounselorType(c) === 'trainee' ? '수련생' : '상담사';
+
     const priceText = c.price && c.price.counseling !== undefined
       ? `${Number(c.price.counseling).toLocaleString()}원 <span>/ 1회기</span>`
       : `비용 문의`;
@@ -419,7 +432,7 @@ function renderCounselors() {
           </div>
         </div>
 
-        <div class="c-desc">${c.intro || specialty || ''}</div>
+        <div class="c-desc">${intro || specialty || ''}</div>
         ${specialty ? `<div class="c-specialty-desc">${specialty}</div>` : ''}
 
         <div class="tag-row">
@@ -519,13 +532,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchBtn = document.querySelector('.search-btn');
   const searchInput = document.querySelector('.search-bar input');
 
-  if (searchBtn) {
+  if (searchBtn && searchInput) {
     searchBtn.addEventListener('click', () => {
       searchSite(searchInput.value);
     });
-  }
 
-  if (searchInput) {
     searchInput.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         searchSite(searchInput.value);
