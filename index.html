@@ -1,120 +1,883 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>모두의 상담사</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모두의 상담사</title>
 
-<style>
-* { box-sizing: border-box; }
+  <style>
+    * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
-  background: #fffaf5;
-  color: #2f2925;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+      background: #fffaf5;
+      color: #2f2925;
+      line-height: 1.6;
+    }
 
-header {
-  position: sticky;
-  top: 0;
-  background: #fffaf5;
-  border-bottom: 1px solid #eee;
-}
+    a { color: inherit; text-decoration: none; }
 
-.nav {
-  max-width: 1120px;
-  margin: auto;
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 250, 245, 0.96);
+      border-bottom: 1px solid #eadfd6;
+      backdrop-filter: blur(10px);
+    }
 
-.logo { font-weight: 900; }
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-.hero {
-  max-width: 1120px;
-  margin: auto;
-  padding: 60px 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      color: #3c2c23;
+    }
 
-.badge {
-  background: #f4e4d8;
-  padding: 6px 12px;
-  border-radius: 999px;
-  display: inline-block;
-}
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 15px;
+      color: #5f5148;
+      font-weight: 600;
+    }
 
-h1 { font-size: 42px; }
+    .nav-links a:hover { color: #bc6538; }
 
-.search-box {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
+    section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
 
-input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+      min-height: 560px;
+    }
 
-.btn {
-  background: #bc6538;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-}
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f4e4d8;
+      color: #94512f;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
 
-/* 🔥 핵심 변경 부분 */
-.hero-image {
-  border-radius: 20px;
-  overflow: hidden;
-}
+    h1 {
+      margin: 0 0 20px;
+      font-size: 48px;
+      line-height: 1.18;
+      letter-spacing: -1.4px;
+      color: #35261f;
+    }
 
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-</style>
+    h2 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1.28;
+      letter-spacing: -0.8px;
+      color: #35261f;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      color: #35261f;
+    }
+
+    p { margin: 0; }
+
+    .sub {
+      color: #6b5c52;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      max-width: 540px;
+      margin-bottom: 16px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 15px 16px;
+      border-radius: 14px;
+      border: 1px solid #e1d3c8;
+      background: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus { border-color: #bc6538; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      background: #bc6538;
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover { background: #9f512b; }
+
+    .btn-outline {
+      background: #fff;
+      color: #8a4f31;
+      border: 1px solid #ead6c6;
+    }
+
+    .btn-outline:hover { background: #fff3e9; }
+
+    .tags,
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag,
+    .filter-btn {
+      border: 1px solid #e8d8cb;
+      background: #fff;
+      color: #5f5148;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tag:hover,
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #35261f;
+      color: #fff;
+      border-color: #35261f;
+    }
+
+    .info-card,
+    .cert-card,
+    .step-card,
+    .counselor-card,
+    .register-card {
+      background: #fff;
+      border: 1px solid #eadfd6;
+      border-radius: 24px;
+      box-shadow: 0 14px 34px rgba(80, 50, 30, 0.06);
+    }
+
+    .hero-image {
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid #eadfd6;
+      box-shadow: 0 20px 50px rgba(80, 50, 30, 0.12);
+      background: #f6e8de;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .info-card p,
+    .cert-card p,
+    .step-card p,
+    .register-card p {
+      color: #6b5c52;
+      font-size: 15px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .info-card { padding: 22px; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .cert-card { padding: 22px; }
+
+    .cert-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;
+      background: #f8ede5;
+      border-radius: 18px;
+      margin-bottom: 14px;
+    }
+
+    .cert-title {
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: #35261f;
+    }
+
+    .note {
+      margin-top: 22px;
+      padding: 18px;
+      background: #fff2e8;
+      border: 1px solid #efd7c6;
+      border-radius: 18px;
+      color: #684b3a;
+      font-size: 15px;
+    }
+
+    .counselor-tabs {
+      display: flex;
+      gap: 10px;
+      margin: 26px 0 14px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: #efe2d8;
+      color: #5b4537;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: #bc6538;
+      color: #fff;
+    }
+
+    .filters { margin: 16px 0 26px; }
+
+    .counselor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .counselor-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .profile-img {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+      object-fit: cover;
+      background: #f6e8de;
+      margin-bottom: 16px;
+    }
+
+    .license {
+      color: #a25732;
+      font-weight: 900;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .region {
+      color: #6b5c52;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .intro {
+      color: #473c35;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .specialty {
+      color: #6b5c52;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .type-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .type-tag {
+      background: #f6ebe3;
+      color: #6d4b3a;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .price-box {
+      background: #fff8f2;
+      border: 1px solid #f0dfd1;
+      border-radius: 14px;
+      padding: 12px;
+      margin: 4px 0 16px;
+      color: #5c4a40;
+      font-size: 14px;
+    }
+
+    .price-box strong { color: #35261f; }
+
+    .reserve-btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      text-align: center;
+      color: #6b5c52;
+      background: #fff;
+      border: 1px solid #eadfd6;
+      border-radius: 20px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .step-card { padding: 22px; }
+
+    .num {
+      width: 36px;
+      height: 36px;
+      background: #bc6538;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .register-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .register-card { padding: 24px; }
+
+    footer {
+      margin-top: 60px;
+      background: #35261f;
+      color: #f7eee8;
+      padding: 34px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid-4,
+      .cert-grid,
+      .counselor-grid,
+      .steps,
+      .register-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-box { flex-direction: column; }
+
+      .hero-image img {
+        min-height: 260px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <nav class="nav">
+      <a href="#" class="logo">모두의 상담사</a>
+      <div class="nav-links">
+        <a href="#counselors">상담사 찾기</a>
+        <a href="#certificates">심리검사</a>
+        <a href="#how">이용안내</a>
+        <a href="#register">상담사 등록</a>
+      </div>
+    </nav>
+  </header>
 
-<header>
-  <div class="nav">
-    <div class="logo">모두의 상담사</div>
-  </div>
-</header>
+  <main>
+    <section class="hero">
+      <div>
+        <span class="badge">검증된 임상·상담 심리 전문가</span>
+        <h1>심리상담, 심리검사 받고 싶은데<br />누구한테 어떤 걸 받지?</h1>
+        <p class="sub">
+          고민되셨다면 여기서 확인해보세요.<br />
+          받고 싶은 심리 서비스에 맞춰 정식 수련을 받은 후, 검증된<br />
+          임상 및 상담 심리사들을 소개해드립니다.
+        </p>
 
-<main>
+        <div class="search-box">
+          <input id="searchInput" type="text" placeholder="우울, 불안, 관계, 심리검사 등으로 검색" />
+          <button class="btn" onclick="searchCounselors()">검색</button>
+        </div>
 
-<section class="hero">
-  <div>
-    <span class="badge">검증된 임상·상담 심리 전문가</span>
-    <h1>심리상담, 심리검사 받고 싶은데<br>누구한테 어떤 걸 받지?</h1>
+        <div class="tags">
+          <button class="tag" onclick="quickSearch('우울')">우울·무기력</button>
+          <button class="tag" onclick="quickSearch('불안')">불안·공황</button>
+          <button class="tag" onclick="quickSearch('관계')">관계 갈등</button>
+          <button class="tag" onclick="quickSearch('트라우마')">트라우마</button>
+          <button class="tag" onclick="quickSearch('심리검사')">심리검사</button>
+          <button class="tag" onclick="quickSearch('진로')">진로·자존감</button>
+          <button class="tag" onclick="quickSearch('가족')">가족·부부</button>
+        </div>
+      </div>
 
-    <div class="search-box">
-      <input placeholder="검색" />
-      <button class="btn">검색</button>
+      <div class="hero-image">
+        <img src="images/hero-choice.png" alt="상담사 선택 고민 이미지" />
+      </div>
+    </section>
+
+    <section id="questions">
+      <h2>이런 고민, 한 번쯤 해보셨나요?</h2>
+      <p class="sub">이용자가 실제로 궁금해하는 기준을 먼저 쉽게 확인할 수 있도록 정리했습니다.</p>
+
+      <div class="grid-4">
+        <div class="info-card">
+          <h3>자격증이 있으면<br />다 심리전문가인가?</h3>
+          <p>자격 이름만이 아니라 어떤 수련 체계 안에서 훈련받았는지를 함께 봐야 합니다.</p>
+        </div>
+
+        <div class="info-card">
+          <h3>누구한테 받아야<br />안전할까?</h3>
+          <p>자격, 수련 배경, 실제 전문 분야를 함께 확인하면 더 안전하게 선택할 수 있습니다.</p>
+        </div>
+
+        <div class="info-card">
+          <h3>여기저기 일한 경력이 많으면<br />괜찮은걸까?</h3>
+          <p>경력의 양보다 어떤 훈련을 받았는지, 어떤 영역을 실제로 수행하는지가 더 중요합니다.</p>
+        </div>
+
+        <div class="info-card">
+          <h3>심리상담은<br />너무 비싸지 않나?</h3>
+          <p>유료 상담사 정보뿐 아니라 수련생의 무료 사례 정보도 함께 비교해 볼 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificates">
+      <h2>전문 자격 안내</h2>
+      <p class="sub">궁금한 자격증을 클릭해보세요</p>
+
+      <div class="cert-grid">
+        <div class="cert-card">
+          <img src="images/cert-counseling.png" alt="상담심리사 자격증 이미지" />
+          <div class="cert-title">한국상담학회 / 한국상담심리학회 상담심리사 1급 · 2급</div>
+          <p>
+            심리학 관련 석사 과정을 바탕으로, 학회가 규정한 정식 수련 과정을 슈퍼바이저 지도 아래 거친 뒤 응시할 수 있는 상담 전문 자격입니다.
+            개인상담, 관계 문제, 정서적 어려움에 대한 심리상담 역량을 중심으로 훈련받은 전문 인력입니다.
+          </p>
+        </div>
+
+        <div class="cert-card">
+          <img src="images/cert-mentalhealth.png" alt="정신건강임상심리사 자격증 이미지" />
+          <div class="cert-title">국립정신건강센터 정신건강임상심리사 1급 · 2급</div>
+          <p>
+            심리학 관련 학·석사를 바탕으로, 지정된 수련기관에서 정식 수련 과정을 거쳐 취득하는 정신건강전문요원 중 '심리'분야의 전문 자격입니다.
+            심리상담뿐 아니라 심리평가, 재활, 교육 등 정신건강 영역 전반에서 실무 역량을 갖춘 전문 인력입니다.
+          </p>
+        </div>
+
+        <div class="cert-card">
+          <img src="images/cert-clinical.png" alt="임상심리전문가 자격증 이미지" />
+          <div class="cert-title">한국임상심리학회 임상심리전문가</div>
+          <p>
+            심리학 관련 석사 이후, 학회가 규정한 수련기관에서 3년 이상의 정식 수련을 거쳐 취득하는 임상심리 전문 자격입니다.
+            심리평가 역량을 중심으로 훈련받으며, 심리상담과 정신건강 현장에서도 활동하는 전문 인력입니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        * 그 외에도 의미 있는 교육과 경험을 가진 분들이 있을 수 있습니다. 다만 모두의 상담사는 이용자가 훈련 체계와 전문성 수준을 비교적 명확하게 확인할 수 있는 자격을 우선 기준으로 삼고 있어, 현재는 위와 같이 검증 가능성이 높은 자격과 수련 배경을 중심으로 등록을 받고 있습니다. 현재 한국의 법과 규제로는, 상담자가 충분한 상담 경력과 전문 교육을 받았는지를 확인 할 수 없습니다. 그렇기에 더욱 안전한 심리상담 문화를 만들기 위해, 모두의 상담사는 보수적으로 확인하고 있습니다.
+      </div>
+    </section>
+
+    <section id="counselors">
+      <h2>상담사 찾기</h2>
+      <p class="sub">
+        전문 분야와 자격 기준으로 나에게 맞는 상담사를 찾아보세요<br />
+        상담사 보호를 위해 웹페이지에는 상담사가 원할 경우 상담자의 이름이 닉네임으로 소개되며, 이력·경력·비용·지역·상담방식 정보는 투명하게 공개합니다.<br />
+        실명은 예약 진행 시 각 상담사에게 개별적으로 확인하실 수 있습니다.
+      </p>
+
+      <div class="counselor-tabs">
+        <button class="tab-btn active" onclick="setCurrentType('all', this)">전체</button>
+        <button class="tab-btn" onclick="setCurrentType('paid', this)">전문상담사(유료)</button>
+        <button class="tab-btn" onclick="setCurrentType('trainee', this)">상담수련생(무료)</button>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" onclick="setCurrentFilter('전체', this)">전체</button>
+        <button class="filter-btn" onclick="setCurrentFilter('임상심리전문가', this)">임상심리전문가</button>
+        <button class="filter-btn" onclick="setCurrentFilter('상담심리사', this)">상담심리사</button>
+        <button class="filter-btn" onclick="setCurrentFilter('정신건강임상심리사', this)">정신건강임상심리사</button>
+        <button class="filter-btn" onclick="setCurrentFilter('온라인 상담 가능', this)">온라인 상담 가능</button>
+        <button class="filter-btn" onclick="setCurrentFilter('주말 가능', this)">주말 가능</button>
+      </div>
+
+      <div id="counselorGrid" class="counselor-grid">
+        <div class="empty">상담사 정보를 불러오는 중입니다.</div>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>이용 방법</h2>
+      <p class="sub">4단계로 쉽게 나만의 상담사를 만나보세요</p>
+
+      <div class="steps">
+        <div class="step-card">
+          <div class="num">1</div>
+          <h3>고민 검색</h3>
+          <p>지금 힘든 것을 키워드로 검색하거나 분야를 선택하세요</p>
+        </div>
+
+        <div class="step-card">
+          <div class="num">2</div>
+          <h3>상담사 비교</h3>
+          <p>자격, 경력, 전문 분야, 후기를 보고 나에게 맞는 분을 찾아요</p>
+        </div>
+
+        <div class="step-card">
+          <div class="num">3</div>
+          <h3>날짜·방식 선택</h3>
+          <p>대면 / 비대면, 날짜와 시간을 직접 선택해 예약해요</p>
+        </div>
+
+        <div class="step-card">
+          <div class="num">4</div>
+          <h3>상담 시작</h3>
+          <p>예약 확정 후 상담사와 안전하게 연결돼요</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="register">
+      <div class="register-wrap">
+        <div class="register-card">
+          <h3>상담사로 등록하시겠어요?</h3>
+          <p>
+            자격을 갖춘 임상·상담 심리사라면 누구든 '모두의 상담사'에 프로필을 등록할 수 있어요.
+            내담자를 기다리는 것이 아니라, 필요한 회원이 먼저 찾아옵니다.
+          </p>
+          <br />
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSepvDNVA6xvx78u55hMTQQR5F5m3gnY_EftCEprNhCJ99IjbQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+            상담사 등록 신청하기
+          </a>
+        </div>
+
+        <div class="register-card">
+          <h3>무료 케이스를 구하시나요?</h3>
+          <p>
+            수련 중인 대학원생이나 수련생이라면 이 곳에서 무료 상담·검사 케이스를 모집할 수 있어요.
+            프로필 등록 후 승인되면 바로 노출됩니다.
+          </p>
+          <br />
+          <a class="btn btn-outline" href="https://docs.google.com/forms/d/e/1FAIpQLSeu5FKrkFQftiioegsq0uKXYNZ5J7kV1LMAMLyaRt-QMhs7lg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+            수련생 등록 신청하기
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>모두의 상담사</strong><br />
+        심리 서비스 연결 플랫폼
+      </div>
+
+      <div>
+        이메일주소: psyonlyonenara@gmail.com<br />
+        이메일 문의확인: 평일 18:00-22:00
+      </div>
+
+      <div>
+        <a href="#register">상담사로 등록하기</a> · 이용약관 · 개인정보처리방침
+      </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- 🔥 여기만 바뀐거 -->
-  <div class="hero-image">
-    <img src="images/hero-choice.png">
-  </div>
+  <script>
+    let allCounselors = [];
+    let currentType = "all";
+    let currentFilter = "전체";
+    let currentSearch = "";
 
-</section>
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-</main>
+    function normalizeText(value) {
+      if (Array.isArray(value)) return value.join(" ");
+      if (value === null || value === undefined) return "";
+      if (typeof value === "object") return Object.values(value).join(" ");
+      return String(value);
+    }
 
+    function formatPrice(value) {
+      if (value === null || value === undefined || value === "") return "";
+      if (Number(value) === 0) return "무료";
+      return Number(value).toLocaleString("ko-KR") + "원";
+    }
+
+    function getCounselingPrice(counselor) {
+      if (!counselor.price) return "";
+
+      if (typeof counselor.price === "number") {
+        return formatPrice(counselor.price);
+      }
+
+      if (typeof counselor.price === "object") {
+        return formatPrice(counselor.price.counseling);
+      }
+
+      return String(counselor.price);
+    }
+
+    function getAssessmentPrice(counselor) {
+      if (!counselor.price || typeof counselor.price !== "object") return "";
+      return formatPrice(counselor.price.assessment);
+    }
+
+    function getReservationLink(counselor) {
+      return (
+        counselor.reservationLink ||
+        counselor.bookingUrl ||
+        counselor.bookingLink ||
+        counselor.link ||
+        ""
+      );
+    }
+
+    function getSearchText(counselor) {
+      return [
+        counselor.name,
+        counselor.type,
+        counselor.license,
+        counselor.region,
+        counselor.intro,
+        counselor.specialty,
+        normalizeText(counselor.types),
+        normalizeText(counselor.method)
+      ].join(" ");
+    }
+
+    function shouldShowByType(counselor) {
+      if (currentType === "all") return true;
+
+      const counselingPrice = counselor.price && typeof counselor.price === "object"
+        ? Number(counselor.price.counseling || 0)
+        : Number(counselor.price || 0);
+
+      const assessmentPrice = counselor.price && typeof counselor.price === "object"
+        ? Number(counselor.price.assessment || 0)
+        : 0;
+
+      const isFree = counselingPrice === 0 && assessmentPrice === 0;
+
+      if (currentType === "trainee") {
+        return isFree;
+      }
+
+      if (currentType === "paid") {
+        return !isFree;
+      }
+
+      return true;
+    }
+
+    function shouldShowByFilter(counselor) {
+      if (currentFilter === "전체") return true;
+      return getSearchText(counselor).includes(currentFilter);
+    }
+
+    function shouldShowBySearch(counselor) {
+      if (!currentSearch) return true;
+      return getSearchText(counselor).includes(currentSearch);
+    }
+
+    function renderCounselors() {
+      const grid = document.getElementById("counselorGrid");
+
+      const filtered = allCounselors.filter(counselor => {
+        return shouldShowByType(counselor) &&
+               shouldShowByFilter(counselor) &&
+               shouldShowBySearch(counselor);
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="empty">조건에 맞는 상담사 정보가 없습니다.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(counselor => {
+        const name = escapeHtml(counselor.name || "상담사");
+        const image = escapeHtml(counselor.image || "images/avatar-counselor-female.png");
+        const license = escapeHtml(counselor.license || counselor.type || "");
+        const region = escapeHtml(counselor.region || "");
+        const intro = escapeHtml(counselor.intro || "");
+        const specialty = escapeHtml(counselor.specialty || "");
+        const types = Array.isArray(counselor.types) ? counselor.types : [];
+        const counselingPrice = getCounselingPrice(counselor);
+        const assessmentPrice = getAssessmentPrice(counselor);
+        const reservationLink = getReservationLink(counselor);
+
+        const priceHtml = `
+          <div class="price-box">
+            ${counselingPrice ? `<div><strong>상담 비용</strong>: ${escapeHtml(counselingPrice)}</div>` : ""}
+            ${assessmentPrice ? `<div><strong>심리평가 비용</strong>: ${escapeHtml(assessmentPrice)}</div>` : ""}
+          </div>
+        `;
+
+        const reservationHtml = reservationLink
+          ? `<a class="btn reserve-btn" href="${escapeHtml(reservationLink)}" target="_blank" rel="noopener noreferrer">예약 문의하기</a>`
+          : `<button class="btn reserve-btn" type="button" disabled>예약 링크 준비중</button>`;
+
+        return `
+          <article class="counselor-card">
+            <img class="profile-img" src="${image}" alt="${name} 프로필 이미지" onerror="this.src='images/avatar-counselor-female.png'" />
+            <h3>${name}</h3>
+            ${license ? `<div class="license">${license}</div>` : ""}
+            ${region ? `<div class="region">${region}</div>` : ""}
+            ${intro ? `<p class="intro">${intro}</p>` : ""}
+            ${specialty ? `<p class="specialty">${specialty}</p>` : ""}
+            ${
+              types.length
+                ? `<div class="type-tags">${types.map(type => `<span class="type-tag">${escapeHtml(type)}</span>`).join("")}</div>`
+                : ""
+            }
+            ${counselingPrice || assessmentPrice ? priceHtml : ""}
+            ${reservationHtml}
+          </article>
+        `;
+      }).join("");
+    }
+
+    function setCurrentType(type, button) {
+      currentType = type;
+
+      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+      if (button) button.classList.add("active");
+
+      renderCounselors();
+      document.getElementById("counselors").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setCurrentFilter(filter, button) {
+      currentFilter = filter;
+
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      if (button) button.classList.add("active");
+
+      renderCounselors();
+      document.getElementById("counselors").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function quickSearch(keyword) {
+      document.getElementById("searchInput").value = keyword;
+      searchCounselors();
+    }
+
+    function searchCounselors() {
+      currentSearch = document.getElementById("searchInput").value.trim();
+      renderCounselors();
+      document.getElementById("counselors").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        searchCounselors();
+      }
+    });
+
+    fetch("counselors.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("counselors.json 파일을 불러오지 못했습니다.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        allCounselors = Array.isArray(data) ? data : [];
+        renderCounselors();
+      })
+      .catch(error => {
+        console.error(error);
+        document.getElementById("counselorGrid").innerHTML =
+          '<div class="empty">상담사 정보를 불러오지 못했습니다. counselors.json 파일 위치와 JSON 문법을 확인해주세요.</div>';
+      });
+  </script>
 </body>
 </html>
