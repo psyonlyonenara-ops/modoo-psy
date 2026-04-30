@@ -6,9 +6,7 @@
   <title>모두의 상담사</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -18,10 +16,7 @@
       line-height: 1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     header {
       position: sticky;
@@ -57,9 +52,7 @@
       font-weight: 600;
     }
 
-    .nav-links a:hover {
-      color: #bc6538;
-    }
+    .nav-links a:hover { color: #bc6538; }
 
     section {
       max-width: 1120px;
@@ -107,9 +100,7 @@
       color: #35261f;
     }
 
-    p {
-      margin: 0;
-    }
+    p { margin: 0; }
 
     .sub {
       color: #6b5c52;
@@ -134,9 +125,7 @@
       outline: none;
     }
 
-    .search-box input:focus {
-      border-color: #bc6538;
-    }
+    .search-box input:focus { border-color: #bc6538; }
 
     .btn {
       display: inline-flex;
@@ -152,9 +141,7 @@
       white-space: nowrap;
     }
 
-    .btn:hover {
-      background: #9f512b;
-    }
+    .btn:hover { background: #9f512b; }
 
     .btn-outline {
       background: #fff;
@@ -162,9 +149,7 @@
       border: 1px solid #ead6c6;
     }
 
-    .btn-outline:hover {
-      background: #fff3e9;
-    }
+    .btn-outline:hover { background: #fff3e9; }
 
     .tags,
     .filters {
@@ -193,7 +178,6 @@
       border-color: #35261f;
     }
 
-    .hero-card,
     .info-card,
     .cert-card,
     .step-card,
@@ -205,18 +189,77 @@
       box-shadow: 0 14px 34px rgba(80, 50, 30, 0.06);
     }
 
-    .hero-card {
-      padding: 30px;
+    .hero-visual {
+      position: relative;
+      min-height: 360px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, #f7e5d7 0%, #fff7ef 52%, #f1d5c2 100%);
+      box-shadow: 0 22px 50px rgba(80, 50, 30, 0.10);
+      overflow: hidden;
+      border: 1px solid #eadfd6;
     }
 
-    .hero-card img {
-      width: 100%;
-      border-radius: 22px;
-      margin-bottom: 20px;
-      background: #f6e8de;
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: rgba(188, 101, 56, 0.16);
+      right: -48px;
+      top: -42px;
     }
 
-    .hero-card p,
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      left: -38px;
+      bottom: -46px;
+    }
+
+    .visual-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #eadfd6;
+      border-radius: 24px;
+      box-shadow: 0 14px 32px rgba(80, 50, 30, 0.10);
+      padding: 18px 20px;
+      color: #35261f;
+      z-index: 1;
+    }
+
+    .visual-card span {
+      display: block;
+      color: #94512f;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .visual-card strong { font-size: 22px; }
+
+    .visual-card-main {
+      width: 220px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .visual-card-top {
+      right: 32px;
+      top: 52px;
+    }
+
+    .visual-card-bottom {
+      left: 34px;
+      bottom: 58px;
+    }
+
     .info-card p,
     .cert-card p,
     .step-card p,
@@ -232,9 +275,7 @@
       margin-top: 28px;
     }
 
-    .info-card {
-      padding: 22px;
-    }
+    .info-card { padding: 22px; }
 
     .cert-grid {
       display: grid;
@@ -243,9 +284,7 @@
       margin-top: 28px;
     }
 
-    .cert-card {
-      padding: 22px;
-    }
+    .cert-card { padding: 22px; }
 
     .cert-card img {
       width: 100%;
@@ -293,9 +332,7 @@
       color: #fff;
     }
 
-    .filters {
-      margin: 16px 0 26px;
-    }
+    .filters { margin: 16px 0 26px; }
 
     .counselor-grid {
       display: grid;
@@ -370,9 +407,7 @@
       font-size: 14px;
     }
 
-    .price-box strong {
-      color: #35261f;
-    }
+    .price-box strong { color: #35261f; }
 
     .reserve-btn {
       margin-top: auto;
@@ -396,9 +431,7 @@
       margin-top: 28px;
     }
 
-    .step-card {
-      padding: 22px;
-    }
+    .step-card { padding: 22px; }
 
     .num {
       width: 36px;
@@ -420,9 +453,7 @@
       margin-top: 28px;
     }
 
-    .register-card {
-      padding: 24px;
-    }
+    .register-card { padding: 24px; }
 
     footer {
       margin-top: 60px;
@@ -441,9 +472,7 @@
       font-size: 14px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     @media (max-width: 900px) {
       .hero,
@@ -455,21 +484,30 @@
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 36px;
-      }
-
-      h2 {
-        font-size: 28px;
-      }
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
 
       .nav {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .search-box {
-        flex-direction: column;
+      .search-box { flex-direction: column; }
+
+      .hero-visual { min-height: 320px; }
+
+      .visual-card-main {
+        width: 200px;
+      }
+
+      .visual-card-top {
+        right: 22px;
+        top: 36px;
+      }
+
+      .visual-card-bottom {
+        left: 24px;
+        bottom: 40px;
       }
     }
   </style>
@@ -515,12 +553,19 @@
         </div>
       </div>
 
-      <div class="hero-card">
-        <h3>상담사를 고르기 어려운 이유</h3>
-        <p>
-          자격증 이름만으로는 실제 전문성과 수련 배경을 알기 어렵습니다.
-          모두의 상담사는 자격, 전문 분야, 상담 방식, 비용, 예약 경로를 한눈에 확인할 수 있도록 정리합니다.
-        </p>
+      <div class="hero-visual" aria-label="모두의 상담사 소개 이미지">
+        <div class="visual-card visual-card-main">
+          <span>검증된 자격</span>
+          <strong>전문가 확인</strong>
+        </div>
+        <div class="visual-card visual-card-top">
+          <span>상담·검사</span>
+          <strong>분야 비교</strong>
+        </div>
+        <div class="visual-card visual-card-bottom">
+          <span>예약 문의</span>
+          <strong>안전 연결</strong>
+        </div>
       </div>
     </section>
 
@@ -557,7 +602,7 @@
 
       <div class="cert-grid">
         <div class="cert-card">
-          <img src="images/cert-counselor.png" alt="상담심리사 자격증 이미지" />
+          <img src="images/cert-counseling.png" alt="상담심리사 자격증 이미지" />
           <div class="cert-title">한국상담학회 / 한국상담심리학회 상담심리사 1급 · 2급</div>
           <p>
             심리학 관련 석사 과정을 바탕으로, 학회가 규정한 정식 수련 과정을 슈퍼바이저 지도 아래 거친 뒤 응시할 수 있는 상담 전문 자격입니다.
@@ -585,7 +630,7 @@
       </div>
 
       <div class="note">
-        * 그 외에도 의미 있는 교육과 경험을 가진 분들이 있을 수 있습니다. 다만 모두의 상담사는 이용자가 훈련 체계와 전문성 수준을 비교적 명확하게 확인할 수 있는 자격을 우선 기준으로 삼고 있어, 현재는 위와 같이 검증 가능성이 높은 자격과 수련 배경을 중심으로 등록을 받고 있습니다. 현재 한국의 법과 규제로는, 상담자가 충분한 상담 경력과 전문 교육을 받았는지를 확인 할 수 없습니다. 그렇기에 더욱 안전한 심리상담 문화를 만들기 위해, 모두의 상담사는 보수적으로 확인하고 있습니다. 
+        * 그 외에도 의미 있는 교육과 경험을 가진 분들이 있을 수 있습니다. 다만 모두의 상담사는 이용자가 훈련 체계와 전문성 수준을 비교적 명확하게 확인할 수 있는 자격을 우선 기준으로 삼고 있어, 현재는 위와 같이 검증 가능성이 높은 자격과 수련 배경을 중심으로 등록을 받고 있습니다. 현재 한국의 법과 규제로는, 상담자가 충분한 상담 경력과 전문 교육을 받았는지를 확인 할 수 없습니다. 그렇기에 더욱 안전한 심리상담 문화를 만들기 위해, 모두의 상담사는 보수적으로 확인하고 있습니다.
       </div>
     </section>
 
@@ -656,7 +701,7 @@
             내담자를 기다리는 것이 아니라, 필요한 회원이 먼저 찾아옵니다.
           </p>
           <br />
-          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdo3nSXB7rJ0nqgF7V2LspbM3KVSGLo72qzVgOx5vZmBLoqlA/viewform" target="_blank" rel="noopener noreferrer">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSepvDNVA6xvx78u55hMTQQR5F5m3gnY_EftCEprNhCJ99IjbQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
             상담사 등록 신청하기
           </a>
         </div>
@@ -668,7 +713,7 @@
             프로필 등록 후 승인되면 바로 노출됩니다.
           </p>
           <br />
-          <a class="btn btn-outline" href="https://docs.google.com/forms/d/e/1FAIpQLSd8q6hb3dGftDq6W65D5gkKLdIBcmUFN2uEzSY9SC_g6YfjBw/viewform" target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-outline" href="https://docs.google.com/forms/d/e/1FAIpQLSeu5FKrkFQftiioegsq0uKXYNZ5J7kV1LMAMLyaRt-QMhs7lg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
             수련생 등록 신청하기
           </a>
         </div>
