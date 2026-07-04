@@ -721,6 +721,51 @@
       );
     }
 
+    function parseKoreanDate(value, endOfDay = false) {
+      if (!value) return null;
+
+      const text = String(value).trim();
+      const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+      const dateTimePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
+
+      if (datePattern.test(text)) {
+        return new Date(text + (endOfDay ? "T23:59:59+09:00" : "T00:00:00+09:00"));
+      }
+
+      if (dateTimePattern.test(text) && !/[zZ]|[+-]\d{2}:?\d{2}$/.test(text)) {
+        return new Date(text + "+09:00");
+      }
+
+      const parsed = new Date(text);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function getReservationStatus(counselor) {
+      const link = getReservationLink(counselor);
+
+      if (!link) {
+        return { isOpen: false, label: "예약 링크 준비중" };
+      }
+
+      if (counselor.reservationVisible === false || counselor.bookingVisible === false) {
+        return { isOpen: false, label: "예약 마감" };
+      }
+
+      const now = new Date();
+      const openAt = parseKoreanDate(counselor.reservationOpenAt || counselor.bookingOpenAt);
+      const closeAt = parseKoreanDate(counselor.reservationCloseAt || counselor.bookingCloseAt, true);
+
+      if (openAt && now < openAt) {
+        return { isOpen: false, label: "예약 예정" };
+      }
+
+      if (closeAt && now > closeAt) {
+        return { isOpen: false, label: "예약 마감" };
+      }
+
+      return { isOpen: true, label: "예약 문의하기", link };
+    }
+
     function getSearchText(counselor) {
       return [
         counselor.name,
@@ -792,7 +837,7 @@
         const types = Array.isArray(counselor.types) ? counselor.types : [];
         const counselingPrice = getCounselingPrice(counselor);
         const assessmentPrice = getAssessmentPrice(counselor);
-        const reservationLink = getReservationLink(counselor);
+        const reservationStatus = getReservationStatus(counselor);
 
         const priceHtml = `
           <div class="price-box">
@@ -801,9 +846,9 @@
           </div>
         `;
 
-        const reservationHtml = reservationLink
-          ? `<a class="btn reserve-btn" href="${escapeHtml(reservationLink)}" target="_blank" rel="noopener noreferrer">예약 문의하기</a>`
-          : `<button class="btn reserve-btn" type="button" disabled>예약 링크 준비중</button>`;
+        const reservationHtml = reservationStatus.isOpen
+          ? `<a class="btn reserve-btn" href="${escapeHtml(reservationStatus.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(reservationStatus.label)}</a>`
+          : `<button class="btn reserve-btn" type="button" disabled>${escapeHtml(reservationStatus.label)}</button>`;
 
         return `
           <article class="counselor-card">
