@@ -748,7 +748,7 @@
       }
 
       if (counselor.reservationVisible === false || counselor.bookingVisible === false) {
-        return { isOpen: false, label: "예약 마감" };
+        return { isOpen: false, label: "현재는 예약이 마감되었습니다." };
       }
 
       const now = new Date();
@@ -756,11 +756,11 @@
       const closeAt = parseKoreanDate(counselor.reservationCloseAt || counselor.bookingCloseAt, true);
 
       if (openAt && now < openAt) {
-        return { isOpen: false, label: "예약 예정" };
+        return { isOpen: false, label: "현재는 예약이 마감되었습니다." };
       }
 
       if (closeAt && now > closeAt) {
-        return { isOpen: false, label: "예약 마감" };
+        return { isOpen: false, label: "현재는 예약이 마감되었습니다." };
       }
 
       return { isOpen: true, label: "예약 문의하기", link };
